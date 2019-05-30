@@ -82,17 +82,13 @@ Node_t *newNode(const char *value, Node_t *next)
  */
 Node_t *deleteNode(Node_t *current, char **value)
 {
-  if(current == NULL){
-    return NULL;
-  }
-  else{
+  if(current != NULL){
     *value = current->value;
     Node_t *temp = current;
     current = current->next;
     free(temp);
-    return current;
   }
-
+  return current;
 }
 
 /**
@@ -103,16 +99,11 @@ Node_t *deleteNode(Node_t *current, char **value)
  */
 bool pop(Node_t **Stack, char **value)
 {
-  Node_t *temp = *Stack;
-  temp = deleteNode(*Stack, value);
-  *Stack = temp;
+  *Stack = deleteNode(*Stack, value);
   if(Stack != NULL){
     return true;
   }
-  else{
-    return false;
-  }
-
+  return false;
 }
 
 /**
@@ -122,12 +113,10 @@ bool pop(Node_t **Stack, char **value)
  */
 bool push(Node_t **Stack, const char *value)
 {
-  Node_t *temp;
-  if((temp = newNode(value, *Stack))!= NULL){
+  Node_t *temp = newNode(value, *Stack);
+  if(temp != NULL){
     *Stack = temp;
     return true;
   }
-  else{
-    return false;
-  }
+  return false;
 }
